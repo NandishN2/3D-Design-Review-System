@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "l-bracket-cad"
+version = "0.1.0"
+description = "A staged 3D CAD inspection pipeline for L-bracket design review."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "pydantic>=2.9,<3.0",
+  "python-multipart>=0.0.9,<1.0",
+  "typer>=0.12,<1.0",
+  "uvicorn[standard]>=0.30,<1.0",
+]
+
+[project.optional-dependencies]
+mesh = [
+  "trimesh>=4.5,<5.0",
+  "open3d>=0.18,<1.0",
+  "pymeshlab>=2023.12,<2026.0",
+  "pillow>=10.0,<12.0",
+]
+vision = [
+  "ultralytics>=8.3,<9.0",
+  "opencv-python>=4.10,<5.0",
+]
+reporting = [
+  "chromadb>=0.5,<1.0",
+]
+dev = [
+  "pytest>=8.3,<9.0",
+  "httpx>=0.27,<1.0",
+  "ruff>=0.8,<1.0",
+]
+all = [
+  "l-bracket-cad[mesh,vision,reporting,dev]",
+]
+
+[project.scripts]
+lbracket = "l_bracket_cad.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/l_bracket_cad"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.uv]
+default-groups = ["dev"]

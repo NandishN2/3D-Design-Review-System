@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "L-Bracket CAD API",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["l_bracket_cad.api:app", "--reload"],
+      "jinja": true
+    }
+  ]
+}
